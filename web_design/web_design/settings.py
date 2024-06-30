@@ -132,4 +132,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
-DEBUG=True
+
+DEBUG = True

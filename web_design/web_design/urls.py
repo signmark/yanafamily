@@ -1,9 +1,9 @@
 from django.contrib import admin
-from django.urls import include, path
-from website_brief import views as brief_views
+from django.urls import path, include
+from .views import health_check
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('brief/', include('website_brief.urls')),
-    # path('thank_you/', brief_views.thank_you, name='thank_you'),
+    path('health/', health_check, name='health_check'),
 ]

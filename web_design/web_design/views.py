@@ -3,6 +3,9 @@ from django.core.mail import send_mail
 from .forms import WebsiteBriefForm
 
 
+def health_check(request):
+    return render(request, 'health_check.html')
+
 def website_brief(request):
     if request.method == 'POST':
         form = WebsiteBriefForm(request.POST)
