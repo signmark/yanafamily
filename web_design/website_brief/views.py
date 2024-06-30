@@ -7,10 +7,8 @@ def website_brief(request):
     if request.method == 'POST':
         form = WebsiteBriefForm(request.POST)
         if form.is_valid():
-            # Обработка данных формы
-            # Например, отправка email или сохранение в базу данных
             send_email_with_form_data(form.cleaned_data)
-            return redirect('thank_you')  # Перенаправление на страницу благодарности
+            return redirect('thank_you')
     else:
         form = WebsiteBriefForm()
 
@@ -18,10 +16,10 @@ def website_brief(request):
 
 
 def send_email_with_form_data(data):
-    subject = 'Новый бриф на разработку сайта'
+    subject = 'New Website Brief'
     message = '\n'.join([f'{key}: {value}' for key, value in data.items()])
-    from_email = 'your_email@example.com'
-    recipient_list = ['recipient@example.com']
+    from_email = 'signmark@craftpodium.com'
+    recipient_list = ['signmark@gmail.com']
 
     send_mail(subject, message, from_email, recipient_list)
 
