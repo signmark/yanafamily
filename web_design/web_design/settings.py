@@ -108,11 +108,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.beget.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 25))
 EMAIL_USE_TLS = int(os.environ.get('EMAIL_USE_TLS', 1))
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'signmark@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'your-email-password')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'signmark@craftpodium.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'QtpZ3dh703#')
 
 # Security settings
 if not DEBUG:

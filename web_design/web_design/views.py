@@ -1,19 +1,21 @@
+import os
+
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .forms import WebsiteBriefForm
 
 
 def health_check(request):
-    return render(request, 'health_check.html')
+    template_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'templates', 'health_check.html')
+    return render(request, template_path)
+
 
 def website_brief(request):
     if request.method == 'POST':
         form = WebsiteBriefForm(request.POST)
         if form.is_valid():
-            # Обработка данных формы
-            # Например, отправка email или сохранение в базу данных
             send_email_with_form_data(form.cleaned_data)
-            return redirect('thank_you')  # Перенаправление на страницу благодарности
+            return redirect('thank_you')
     else:
         form = WebsiteBriefForm()
 
