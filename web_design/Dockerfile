@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 COPY ./templates /app/templates
+COPY ./certbot /var/www/certbot
 
 RUN python manage.py collectstatic --noinput
 
