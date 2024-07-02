@@ -12,6 +12,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+COPY ./templates /app/templates
 
 RUN python manage.py collectstatic --noinput
 
