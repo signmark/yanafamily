@@ -20,8 +20,8 @@ env = environ.Env(
 environ.Env.read_env(env_file='.env')
 
 DEBUG = env('DEBUG')
-SECRET_KEY = env('SECRET_KEY')
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+SECRET_KEY = 'asfsadfsd154545'
+ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['*']
 
 # Application definition
