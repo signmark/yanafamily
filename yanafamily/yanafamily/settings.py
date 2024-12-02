@@ -110,7 +110,7 @@ USE_TZ = True
 # settings.py
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/app/staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Optionally, specify static directories
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
