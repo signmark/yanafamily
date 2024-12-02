@@ -1,16 +1,18 @@
-version: '3'
-
 services:
   web:
-    build: .
-    ports:
-      - "8080:8000"
-    environment:
-      - DEBUG=0
-      - ALLOWED_HOSTS=31.128.39.108,localhost,127.0.0.1
-      - CSRF_TRUSTED_ORIGINS=http://31.128.39.108:8080
+    build:
+      context: .
+    container_name: django_web
     command: gunicorn yanafamily.wsgi:application --bind 0.0.0.0:8000
-
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+    expose:
+      - "8000"
+    env_file:
+      - .env
+    networks:
+      - my_shared_network
 
   nginx:
     image: nginx:latest
@@ -22,6 +24,12 @@ services:
       - static_volume:/app/staticfiles
     depends_on:
       - web
+    networks:
+      - my_shared_network
 
 volumes:
   static_volume:
+
+networks:
+  my_shared_network:
+    external: true
