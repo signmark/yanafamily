@@ -1,16 +1,14 @@
-version: '3.8'
+version: '3'
 
 services:
   web:
-    build:
-      context: .
-    container_name: django_web
-    command: gunicorn yanafamily.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - .:/app
-      - static_volume:/app/staticfiles
-    expose:
-      - "8000"
+    build: .
+    ports:
+      - "8080:8000"  # Maps port 8080 on the host to 8000 in the container
+    environment:
+      - DEBUG=0
+      - ALLOWED_HOSTS=31.128.39.108
+    restart: always
     env_file:
       - .env
 

@@ -1,19 +1,25 @@
-# Используем официальный Python образ
-FROM python:3.10
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
 
-# Устанавливаем переменные окружения
+# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Устанавливаем рабочую директорию
+# Set work directory
 WORKDIR /app
 
-# Копируем файлы проекта
-COPY . /app
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Устанавливаем зависимости
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Copy project code
+COPY . /app/
 
-# Команда для запуска приложения
-CMD ["gunicorn", "yanafamily.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3", "--timeout", "120"]
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
+# Expose port
+EXPOSE 8000
+
+# Command to run the application
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "your_project_name.wsgi:application"]

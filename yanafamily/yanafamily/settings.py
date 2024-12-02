@@ -15,7 +15,8 @@ SECRET_KEY = 'your-secret-key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['31.128.39.108']
+ALLOWED_HOSTS = ['31.128.39.108', 'localhost', '127.0.0.1']
+
 
 
 
@@ -102,13 +103,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+# settings.py
+
 STATIC_URL = '/static/'
-STATIC_ROOT = '/app/staticfiles/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Collects static files here
+
+# Optionally, specify static directories
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://31.128.39.108:8080',
-]
+CSRF_TRUSTED_ORIGINS = ['http://31.128.39.108:8080']
+CSRF_FAILURE_VIEW = 'django.views.csrf.csrf_failure'
