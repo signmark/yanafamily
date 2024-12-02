@@ -10,19 +10,14 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-import environ
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'your-secret-key'
 
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
-# Reading .env file
-environ.Env.read_env(env_file='.env')
-
-DEBUG = env('DEBUG')
-SECRET_KEY = 'asfsadfsd154545'
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['*']
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -39,7 +34,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -70,10 +65,16 @@ WSGI_APPLICATION = 'yanafamily.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',  # Имя базы данных, указанное в POSTGRES_DB
+        'USER': 'postgres',
+        'PASSWORD': 'cgQrL3pX',  # Используйте значение ${POSTGRES_PASSWORD}
+        'HOST': 'postgres',  # Имя сервиса базы данных в первом docker-compose.yml
+        'PORT': '5432',
     }
 }
+
+
 
 
 # Password validation
@@ -107,16 +108,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-# settings.py
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Optionally, specify static directories
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = 'static/'
+STATIC_ROOT = '/app/staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CSRF_FAILURE_VIEW = 'django.views.csrf.csrf_failure'
+CSRF_TRUSTED_ORIGINS = ['http://31.128.39.108:8080']
+STATICFILES_DIRS = ['/app/static']
