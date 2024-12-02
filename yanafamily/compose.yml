@@ -4,13 +4,13 @@ services:
   web:
     build: .
     ports:
-      - "8080:8000"  # Maps port 8080 on the host to 8000 in the container
+      - "8080:8000"
     environment:
       - DEBUG=0
-      - ALLOWED_HOSTS=31.128.39.108
-    restart: always
-    env_file:
-      - .env
+      - ALLOWED_HOSTS=31.128.39.108,localhost,127.0.0.1
+      - CSRF_TRUSTED_ORIGINS=http://31.128.39.108:8080
+    command: gunicorn your_project_name.wsgi:application --bind 0.0.0.0:8000
+
 
   nginx:
     image: nginx:latest
