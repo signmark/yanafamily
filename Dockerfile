@@ -1,19 +1,19 @@
-# Используем официальный Python образ
-FROM python:3.10
+FROM python:3.10-slim
 
-# Устанавливаем переменные окружения
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-# Устанавливаем рабочую директорию
+# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем файлы проекта
-COPY . /app
+# Копируем файлы с зависимостями в контейнер
+COPY requirements.txt /app/
 
 # Устанавливаем зависимости
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Команда для запуска приложения
-CMD ["gunicorn", "yanafamily.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3", "--timeout", "120"]
+# Копируем весь код приложения в контейнер
+COPY . /app/
+
+# Экспортируем порт 8000 (если необходимо)
+EXPOSE 8000
+
+# Запускаем приложение
+CMD ["gunicorn", "yanafamily.wsgi:application", "--bind", "0.0.0.0:8000"]
